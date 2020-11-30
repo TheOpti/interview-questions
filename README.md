@@ -147,3 +147,71 @@ function flatten(arr) {
   }, []);
 }
 ```
+
+### Writing your own Bind function
+
+```js
+// Implement Function.prototype.bind
+
+const foo = function() {
+  console.log(this.bar);
+}
+
+let baz = foo.bind({ bar: 'hello' });
+baz(); // hello
+```
+
+Solution:
+```js
+Function.prototype.bind = function(context) {
+  return (...args) => {
+    this.call(context, ...args);
+  };
+}
+```
+
+### Implement debounce
+
+```js
+const debounce = (delay, fn) => {
+  let timer;
+
+  return (...argList) => {
+    if (timer) clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      fn(...argList);
+      timer = null;
+    }, delay);
+  };
+};
+```
+
+### Tree exercise
+
+```js
+// We have 2 identical DOM trees, A and B. For DOM tree A, we have
+// the location of an element. Create a function to find that same element
+// in tree B. 
+```
+
+Solution:
+```js
+function findElem(elem, root) {
+  const path = [];
+  let pointer = elem;
+  
+  while (pointer.parent) {
+    const idx = pointer.parent.children.indexOf(pointer);
+    path.push(index);
+  
+    pointer = pointer.parent;
+  }
+
+  pointer = root;
+  
+  while (path.length) {
+    pointer = children[path.pop()];
+  }
+}
+```

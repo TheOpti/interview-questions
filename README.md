@@ -104,3 +104,46 @@ TODO
 
 
 ## Big O notation
+
+
+## Interview tasks - exercises
+
+### Remove duplicate Strings 
+
+```js
+// Create a function that takes a string and returns a new string without duplicates
+
+const str = 'This is a test test string test exercise test is';
+removeDuplicates(str); // This is a test string exercise
+```
+
+Solution:
+```
+function removeDuplicates(str) {
+  const words = str.split(' ');
+  const withNoDuplicates = new Set([...words]);
+  return [...withNoDuplicates].join(' ');
+}
+```
+
+### Flattening an Array
+
+```js
+// Without using .flat(), create a function to flatten an array
+
+const arr = [1, 2, [3, 4, [5, 6, 7], 8], 9, 10];
+flatten(arr); // [1,2,3,4,5,6,7,8,9,10] 
+```
+
+Solution:
+```js
+function flatten(arr) {
+  return arr.reduce((acc, value) => {
+    if (Array.isArray(value)) {
+      return [...acc, ...flatten(value)];
+    }
+
+    return [...acc, value];
+  }, []);
+}
+```

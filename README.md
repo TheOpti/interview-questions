@@ -215,3 +215,75 @@ function findElem(elem, root) {
   }
 }
 ```
+
+### Rendering exercise
+```js
+// Create a function to move an element. The function args are:
+// distance, duration, element to move
+
+function moveElement(distance, duration, element) { ... }
+```
+
+Solution:
+```js
+function moveElement(distance, duration, element) { 
+  const start = performance.now();
+    
+  function move(currentTime) {
+    const elapsed = duration - currentTime;
+    const progress = elapsed / duration;
+    const amountToMove = progress * distance;
+      
+    element.style.transform = `translateX(${amountToMove}px)`
+    
+    if (amountToMove < distance) {
+      requestAnimationFrame(move);
+    }
+  }
+
+  requestAnimationFrame(move);
+}
+```
+
+### Promise exercise
+```js
+// Create a sleep function that takes one parameter (time)
+// and will wait "time" ms
+```
+
+Solution:
+```js
+function sleep(time) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, time);
+    });
+}
+```
+
+Bonus:
+```js
+// Create a function to turn any function into a "promisified" function.
+// Any function will have a callback as a last arg
+const exampleFn = (x, y, callback) => { ... };
+
+const promisedFn = promisify(exampleFn);
+
+promisedFn().then(...).then(...);
+```
+
+Solution:
+```js
+function promisify(fn) {
+  return function(...args) {
+    return new Promise(function (resolve, reject) {
+      function cb(result) {
+        resolve(result);
+      }
+
+      fn.apply(this, args.concat(cb));
+    });
+  }
+}
+```

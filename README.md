@@ -129,7 +129,17 @@ Differences & Limitations of arrow functions:
 
 ### 4. What is the data structure of the DOM?
 
-TODO
+The DOM (Document Object Model) is an API that represents and interacts with any HTML or XML document. The DOM is a document model loaded in the browser and representing the document as a node tree, where each node represents part of the document (e.g. an element, text string, or comment).
+
+![DOM](/images/4_DOM.png)
+
+The actual DOM hierarchy is composed of nodes with lists of child nodes and attributes. The lists are either double linked lists or arrays. Probably the latter, I'd imagine. The node also has properties for things like the parent node.
+
+The document currently loaded in each one of your browser tabs is represented by a document object model. This is a "tree structure" representation created by the browser that enables the HTML structure to be easily accessed by programming languages.
+
+Links:
+
+- [Manipulating elements](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Manipulating_documents).
 
 ### 5. What is a Stack and a Queue? How would you create those data structures in JavaScript?
 

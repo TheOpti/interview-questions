@@ -182,7 +182,26 @@ Links:
 
 ### 6. How can you tell if an image element is loaded on a page?
 
-TODO
+Using `load` event:
+
+```
+var image = document.createElement("img");
+image.src = "path/to/image1.jpg";
+image.onload = function() {
+  console.log("Image 1 ready to append");
+  document.body.append(this);
+};
+```
+
+Other solution is to use the HTMLImageElement interface’s complete attribute. It returns true if the image has completely loaded and false otherwise. We can use this with naturalWidth or naturalHeight properties, which would return 0 when the image failed to load.
+
+```
+window.addEventListener("load", event => {
+  var image = document.querySelector('img');
+  var isLoaded = image.complete && image.naturalHeight !== 0;
+  alert(isLoaded);
+});
+```
 
 ### 7. What is `call()` and `apply()`?
 

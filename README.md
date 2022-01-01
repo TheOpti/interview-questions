@@ -143,7 +143,42 @@ Links:
 
 ### 5. What is a Stack and a Queue? How would you create those data structures in JavaScript?
 
-TODO
+#### Stack
+
+Stack is an abstract data type that serves as a collection of elements, with two main principal operations:
+
+- **Push**, which adds an element to the collection, and
+- **Pop**, which removes the most recently added element that was not yet removed.
+
+The order in which elements come off a stack gives rise to its alternative name, LIFO (last in, first out).
+
+Implementation example:
+
+```
+var stack = [];
+stack.push(2);       // stack is now [2]
+stack.push(5);       // stack is now [2, 5]
+var i = stack.pop(); // stack is now [2]
+alert(i);            // displays 5
+```
+
+#### Queue
+
+Queue is a collection of entities that are maintained in a sequence and can be modified by the addition of entities at one end of the sequence and the removal of entities from the other end of the sequence.
+
+The operations of a queue make it a first-in-first-out (FIFO) data structure.
+
+```
+var queue = [];
+queue.push(2);         // queue is now [2]
+queue.push(5);         // queue is now [2, 5]
+var i = queue.shift(); // queue is now [5]
+alert(i);              // displays 2
+```
+
+Links:
+
+- [Exploring Stacks and Queues via JavaScript](https://www.digitalocean.com/community/tutorials/js-stacks-queues)
 
 ### 6. How can you tell if an image element is loaded on a page?
 

@@ -258,22 +258,22 @@ const debounce = (delay, fn) => {
 Solution:
 
 ```js
-function findElem(elem, root) {
+function backwardsPath(element, root) {
   const path = [];
-  let pointer = elem;
+  let current = element;
 
-  while (pointer.parent) {
-    const idx = pointer.parent.children.indexOf(pointer);
+  while (current.parentNode) {
+    const index = [...current.parentNode.children].indexOf(current);
     path.push(index);
-
-    pointer = pointer.parent;
+    current = current.parentNode;
   }
 
-  pointer = root;
-
+  current = root;
   while (path.length) {
-    pointer = children[path.pop()];
+    current = current.children[path.pop()];
   }
+
+  return current;
 }
 ```
 
@@ -289,22 +289,22 @@ function moveElement(distance, duration, element) { ... }
 Solution:
 
 ```js
-function moveElement(distance, duration, element) {
+function moveElement(duration, distance, element) {
   const start = performance.now();
 
   function move(currentTime) {
-    const elapsed = duration - currentTime;
-    const progress = elapsed / duration;
-    const amountToMove = progress * distance;
+    const elapsedTime = currentTime - start;
+    const progress = elapsedTime / duration;
 
+    const amountToMove = progress * distance;
     element.style.transform = `translateX(${amountToMove}px)`;
 
-    if (amountToMove < distance) {
+    if (progress < 1) {
       requestAnimationFrame(move);
     }
   }
 
-  requestAnimationFrame(move);
+  move(performance.now());
 }
 ```
 

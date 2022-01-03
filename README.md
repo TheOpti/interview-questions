@@ -205,7 +205,52 @@ window.addEventListener("load", event => {
 
 ### 7. What is `call()` and `apply()`?
 
-TODO
+`this` keyword - `this` is determined by how a function is called (runtime binding). It can't be set by assignment during execution, and it may be different each time the function is called.
+
+#### `call()`
+
+The `call()` method calls a function with a given this value and arguments **provided individually**.
+
+Example:
+
+```
+fn.call(context, arg1, arg2, arg3, ...);
+```
+
+#### `apply()`
+
+The `apply()` method calls a function with a given this value, and arguments **provided as an array** (or an array-like object).
+
+Example:
+
+```
+fn.apply(context, [arg1, arg2, arg3, ...]);
+```
+
+#### Bonus - `bind()`
+
+`bind()` - method creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.
+
+```
+const module = {
+  x: 42,
+  getX: function() {
+    return this.x;
+  }
+};
+
+const unboundGetX = module.getX;
+console.log(unboundGetX()); // The function gets invoked at the global scope
+// expected output: undefined
+
+const boundGetX = unboundGetX.bind(module);
+console.log(boundGetX());
+// expected output: 42
+```
+
+Links:
+
+- [This is why we need to bind event handlers in Class Components in React](https://www.freecodecamp.org/news/this-is-why-we-need-to-bind-event-handlers-in-class-components-in-react-f7ea1a6f93eb/)
 
 ### 8. What is event delegation and what are the performance tradeoffs?
 

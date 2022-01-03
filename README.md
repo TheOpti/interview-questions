@@ -46,7 +46,7 @@ All declarations (`var`, `let`, `const`, `function`, `function*`, `class`) are
 "hoisted" in JavaScript. This means that if a name is declared in a scope,
 in that scope the identifier will always reference that particular variable:
 
-```js
+```javascript
 x = "global";
 // function scope:
 (function() {
@@ -92,7 +92,7 @@ It has different values depending on where it is used:
 Since the following code is not in strict mode, and because the value
 of this is not set by the call, this will default to the global object, which is window in a browser:
 
-```
+```javascript
 function f1() {
   return this;
 }
@@ -106,17 +106,17 @@ f1() === globalThis; // true
 
 **Note**: ES6 (ES2015) introduced arrow functions which don't provide their own this binding (it retains the this value of the enclosing lexical context):
 
-```
+```javascript
 const myObject = {
   myMethod: () => {
     console.log(this);
-  }
+  },
 };
 
-myObject.myMethod() // this === window or global object
+myObject.myMethod(); // this === window or global object
 
 const myMethod = myObject.myMethod;
-myMethod() // this === window or global object
+myMethod(); // this === window or global object
 ```
 
 Differences & Limitations of arrow functions:
@@ -154,12 +154,12 @@ The order in which elements come off a stack gives rise to its alternative name,
 
 Implementation example:
 
-```
+```javascript
 var stack = [];
-stack.push(2);       // stack is now [2]
-stack.push(5);       // stack is now [2, 5]
+stack.push(2); // stack is now [2]
+stack.push(5); // stack is now [2, 5]
 var i = stack.pop(); // stack is now [2]
-alert(i);            // displays 5
+alert(i); // displays 5
 ```
 
 #### Queue
@@ -168,12 +168,12 @@ Queue is a collection of entities that are maintained in a sequence and can be m
 
 The operations of a queue make it a first-in-first-out (FIFO) data structure.
 
-```
+```javascript
 var queue = [];
-queue.push(2);         // queue is now [2]
-queue.push(5);         // queue is now [2, 5]
+queue.push(2); // queue is now [2]
+queue.push(5); // queue is now [2, 5]
 var i = queue.shift(); // queue is now [5]
-alert(i);              // displays 2
+alert(i); // displays 2
 ```
 
 Links:
@@ -195,9 +195,9 @@ image.onload = function() {
 
 Other solution is to use the HTMLImageElement interface’s complete attribute. It returns true if the image has completely loaded and false otherwise. We can use this with naturalWidth or naturalHeight properties, which would return 0 when the image failed to load.
 
-```
-window.addEventListener("load", event => {
-  var image = document.querySelector('img');
+```javascript
+window.addEventListener("load", (event) => {
+  var image = document.querySelector("img");
   var isLoaded = image.complete && image.naturalHeight !== 0;
   alert(isLoaded);
 });
@@ -231,12 +231,12 @@ fn.apply(context, [arg1, arg2, arg3, ...]);
 
 `bind()` - method creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.
 
-```
+```javascript
 const module = {
   x: 42,
-  getX: function() {
+  getX: function () {
     return this.x;
-  }
+  },
 };
 
 const unboundGetX = module.getX;
@@ -285,7 +285,72 @@ fragment.appendChild(elements);
 
 ### 9. What is a Worker? When would you use one?
 
-TODO
+Web Worker - A worker is an object created using a constructor that runs a named JavaScript file — this file contains the code that will run in the worker thread; workers run in another global context that is different from the current window.
+
+```javascript
+var worker = new Worker("background.js");
+
+// sending a message
+worker.addEventListener("message", function (e) {
+  console.log("Message: " + e.data);
+});
+
+// messages start and stop
+worker.postMessage("start");
+worker.postMessage("stop");
+
+// finish worker
+worker.terminate();
+```
+
+Features:
+
+- you can't directly manipulate the DOM from inside a worker
+- data is sent between workers and the main thread via a system of messages - `postMessage()`
+- workers may, in turn, spawn new workers
+- they are a browser feature which can be accessed through JavaScript
+
+Links:
+
+- [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)
+- [Web Workers basics](https://www.html5rocks.com/en/tutorials/workers/basics/)
+- [Since JavaScript is single-threaded, how are web workers in HTML5 doing multi-threading?](https://stackoverflow.com/questions/9708113/since-javascript-is-single-threaded-how-are-web-workers-in-html5-doing-multi-th)
+
+#### Difference between `Web Worker` and `Service Worker`
+
+Service workers are a type of worker that serve the explicit purpose of being a proxy between the browser and the network and/or cache.
+
+Unlike regular web workers, service workers have some extra features that allow them to fulfil their proxy purpose.
+Once they are installed and activated, service workers are able to intercept any network requests made from the main document.
+
+```javascript
+/* main.js */
+
+// registering a new service worker
+navigator.serviceWorker.register("/service-worker.js");
+
+/* service-worker.js */
+// Install
+self.addEventListener("install", function (event) {
+  // ...
+});
+
+// Activate
+self.addEventListener("activate", function (event) {
+  // ...
+});
+
+// Listen for network requests from the main document
+self.addEventListener("fetch", function (event) {
+  // ...
+});
+```
+
+**During development you'll be able to use service worker through localhost, but to deploy it on a site you'll need to have HTTPS setup on your server.**
+
+Links:
+
+- [Service Workers](https://developers.google.com/web/fundamentals/primers/service-workers)
 
 ## Big O notation
 
@@ -293,7 +358,7 @@ TODO
 
 ### Remove duplicate Strings
 
-```js
+```javascript
 // Create a function that takes a string and returns a new string without duplicates
 
 const str = "This is a test test string test exercise test is";
@@ -302,17 +367,17 @@ removeDuplicates(str); // This is a test string exercise
 
 Solution:
 
-```
+```javascript
 function removeDuplicates(str) {
-  const words = str.split(' ');
+  const words = str.split(" ");
   const withNoDuplicates = new Set([...words]);
-  return [...withNoDuplicates].join(' ');
+  return [...withNoDuplicates].join(" ");
 }
 ```
 
 ### Flattening an Array
 
-```js
+```javascript
 // Without using .flat(), create a function to flatten an array
 
 const arr = [1, 2, [3, 4, [5, 6, 7], 8], 9, 10];
@@ -321,7 +386,7 @@ flatten(arr); // [1,2,3,4,5,6,7,8,9,10]
 
 Solution:
 
-```js
+```javascript
 function flatten(arr) {
   return arr.reduce((acc, value) => {
     if (Array.isArray(value)) {
@@ -335,7 +400,7 @@ function flatten(arr) {
 
 ### Writing your own Bind function
 
-```js
+```javascript
 // Implement Function.prototype.bind
 
 const foo = function () {
@@ -348,7 +413,7 @@ baz(); // hello
 
 Solution:
 
-```js
+```javascript
 Function.prototype.bind = function (context) {
   return (...args) => {
     this.call(context, ...args);
@@ -358,7 +423,7 @@ Function.prototype.bind = function (context) {
 
 ### Implement debounce
 
-```js
+```javascript
 const debounce = (delay, fn) => {
   let timer;
 
@@ -375,7 +440,7 @@ const debounce = (delay, fn) => {
 
 ### Tree exercise
 
-```js
+```javascript
 // We have 2 identical DOM trees, A and B. For DOM tree A, we have
 // the location of an element. Create a function to find that same element
 // in tree B.
@@ -383,7 +448,7 @@ const debounce = (delay, fn) => {
 
 Solution:
 
-```js
+```javascript
 function backwardsPath(element, root) {
   const path = [];
   let current = element;
@@ -405,7 +470,7 @@ function backwardsPath(element, root) {
 
 ### Rendering exercise
 
-```js
+```javascript
 // Create a function to move an element. The function args are:
 // distance, duration, element to move
 
@@ -414,7 +479,7 @@ function moveElement(distance, duration, element) { ... }
 
 Solution:
 
-```js
+```javascript
 function moveElement(duration, distance, element) {
   const start = performance.now();
 
@@ -436,14 +501,14 @@ function moveElement(duration, distance, element) {
 
 ### Promise exercise
 
-```js
+```javascript
 // Create a sleep function that takes one parameter (time)
 // and will wait "time" ms
 ```
 
 Solution:
 
-```js
+```javascript
 function sleep(time) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -455,7 +520,7 @@ function sleep(time) {
 
 Bonus:
 
-```js
+```javascript
 // Create a function to turn any function into a "promisified" function.
 // Any function will have a callback as a last arg
 const exampleFn = (x, y, callback) => { ... };
@@ -467,7 +532,7 @@ promisedFn().then(...).then(...);
 
 Solution:
 
-```js
+```javascript
 function promisify(fn) {
   return function (...args) {
     return new Promise(function (resolve, reject) {

@@ -254,7 +254,34 @@ Links:
 
 ### 8. What is event delegation and what are the performance tradeoffs?
 
-TODO
+Event delegation allows to avoid adding event listeners to specific nodes. Instead, the event listener is added to one parent. Adding event handlers to each of the 1000 cells would be a major performance problem and, potentially, a source of browser-crashing memory leaks.
+
+#### Event propagation - bubbling vs capturing
+
+A click event propagates in 3 phases:
+
+1. Capture phase — Starting from `window`, `document` and the root element, the event dives down through ancestors of the target element
+2. Target phase — The event gets triggered on the element on which the user has clicked
+3. Bubble phase — Finally, the event bubbles up through ancestors of the target element until the root element, `document`, and `window`.
+
+![DOM](/images/8_event_delegation.webp)
+
+#### `event.target` vs `event.currentTarget`
+
+Difference between them:
+
+- `target` is the element that triggered the event (e.g., the user clicked on)
+- `currentTarget` is the element that the event listener is attached to.
+
+#### document.fragment
+
+Document Fragment is much faster when it is used to insert a set of elements in multiple places.
+
+```
+var fragment = new DocumentFragment();
+...
+fragment.appendChild(elements);
+```
 
 ### 9. What is a Worker? When would you use one?
 
